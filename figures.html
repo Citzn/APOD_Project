@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Why Venus and Jupiter shine: interactive figures</title>
+<style>
+:root{--bg:#f6f7f9;--fg:#1b1d22;--mut:#5d6370;--card:#fff;--line:#d5d9e0;--acc:#2b5fc7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14161b;--fg:#e8eaee;--mut:#9aa1ad;--card:#1d2027;--line:#363b46;--acc:#7ea4f2;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14161b;--fg:#e8eaee;--mut:#9aa1ad;--card:#1d2027;--line:#363b46;--acc:#7ea4f2;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 Georgia,"Times New Roman",serif}
+main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.5rem;margin:0 0 4px}
+p.n{color:var(--mut);font:14px/1.4 system-ui,sans-serif;margin:0 0 18px}
+figure{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:0 0 22px}
+figcaption{font:600 15px/1.4 system-ui,sans-serif;margin-bottom:8px}
+svg{width:100%;height:auto;display:block}
+.t{fill:var(--fg);font:12px system-ui,sans-serif}.m{fill:var(--mut);font:11px system-ui,sans-serif}
+.c{font:14px system-ui,sans-serif;display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.c input[type=range]{flex:1;min-width:160px}
+button,select{font:inherit;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:8px;padding:5px 12px;cursor:pointer}
+button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.sw{display:inline-block;width:30px;height:18px;border-radius:4px;border:1px solid var(--line);vertical-align:middle}
+</style></head><body><main>
+<h1>Why Venus and Jupiter shine</h1>
+<p class="n">Interactive figures. Diagrams are simplified and not to scale.</p>
+
+<figure><figcaption>Figure 1: The spectrum of sunlight. Drag to change the wavelength.</figcaption>
+<svg id="s1" viewBox="0 0 600 190" role="img" aria-label="Wave and colour strip"></svg>
+<div class="c"><label for="w1">Wavelength</label><input id="w1" type="range" min="300" max="750" value="520"><span id="o1"></span></div></figure>
+
+<figure><figcaption>Figure 2: What happens when sunlight meets a molecule</figcaption>
+<svg id="s2" viewBox="0 0 600 260" role="img" aria-label="Light scattered or absorbed by a molecule"></svg>
+<div class="c"><label for="m2">Molecule</label><select id="m2"><option value="none">Absorbs no visible light</option><option value="blue">Absorbs blue light</option><option value="red">Absorbs red light</option><option value="uvb">Absorbs ultraviolet and blue</option></select>
+<input id="w2" type="range" min="380" max="700" value="470" aria-label="Wavelength"><span id="o2"></span></div>
+<div class="c">Colour that returns: <span class="sw" id="sw2"></span></div></figure>
+
+<figure><figcaption>Figure 3: Inside Venus’s clouds</figcaption>
+<svg id="s3" viewBox="0 0 600 270" role="img" aria-label="Sunlight scattering among cloud droplets"></svg>
+<svg id="g3" viewBox="0 0 600 130" role="img" aria-label="Schematic reflectance graph"></svg>
+<div class="c"><label for="a3">Unknown absorber in top layer</label><input id="a3" type="range" min="0" max="100" value="30"><span>Planet colour: <span class="sw" id="sw3"></span></span></div></figure>
+
+<figure><figcaption>Figure 4: Jupiter’s cloud layers</figcaption>
+<svg id="s4" viewBox="0 0 600 300" role="img" aria-label="Cutaway of Jupiter cloud layers"></svg>
+<div class="c"><button id="bz" class="on">Zone</button><button id="bb">Belt</button><span>Returned light: <span class="sw" id="sw4"></span></span></div></figure>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const col=l=>l<380?"#8d7bb5":l>700?"#a07070":"hsl("+(270-(l-380)/320*270)+" 100% 50%)";
+const nm=l=>l<380?"ultraviolet (invisible)":l<450?"violet":l<495?"blue":l<570?"green":l<590?"yellow":l<620?"orange":l<=700?"red":"infrared (invisible)";
+const rgb=l=>{const h=270-(l-380)/320*270;return[0,8,4].map(n=>{const k=(n+h/30)%12;return 255*(.5-.5*Math.max(-1,Math.min(k-3,9-k,1)))})};
+
+function f1(){const l=+$("w1").value,x=20+(l-300)/450*560,pw=l*.5;let p="",b="";
+for(let i=0;i<=560;i+=4)p+=(i?"L":"M")+(20+i)+" "+(60+26*Math.sin(i/pw*6.2832));
+for(let v=300;v<750;v+=5)b+=`<rect x="${20+(v-300)/450*560}" y="120" width="6.4" height="26" fill="${col(v)}"/>`;
+$("s1").innerHTML=`<path d="${p}" fill="none" stroke="${col(l)}" stroke-width="3"/>
+<text class="m" x="20" y="14">One wavelength = distance from peak to peak</text>${b}
+<line x1="${x}" x2="${x}" y1="112" y2="154" stroke="var(--fg)" stroke-width="2"/>
+<text class="m" x="20" y="166">ultraviolet</text><text class="m" x="${20+80/450*560}" y="166">violet</text><text class="m" x="${20+400/450*560}" y="166">red</text>
+<text class="m" x="20" y="184">← shorter wavelength, more energy</text><text class="m" x="580" y="184" text-anchor="end">longer wavelength, less energy →</text>`;
+$("o1").textContent=l+" nm: "+nm(l)}
+
+const B={none:[],blue:[[430,500]],red:[[600,700]],uvb:[[380,490]]};
+function f2(){const l=+$("w2").value,bd=B[$("m2").value],ab=bd.some(r=>l>=r[0]&&l<=r[1]);let s="",i;
+s+=`<line x1="30" y1="110" x2="276" y2="110" stroke="${col(l)}" stroke-width="4"/><text class="m" x="30" y="98">sunlight</text>`;
+if(ab)s+=`<text class="t" x="300" y="160" text-anchor="middle">absorbed: energy becomes heat</text>`;
+else{[-150,-110,-60,-25,25,60,110,150].forEach(a=>{const r=a*Math.PI/180;s+=`<line x1="${300+26*Math.cos(r)}" y1="${110+26*Math.sin(r)}" x2="${300+90*Math.cos(r)}" y2="${110+90*Math.sin(r)}" stroke="${col(l)}" stroke-width="3"/>`});
+s+=`<text class="t" x="300" y="226" text-anchor="middle" style="display:none"></text><text class="t" x="300" y="22" text-anchor="middle">scattered in many directions; many molecules together = reflection</text>`}
+s+=`<circle cx="300" cy="110" r="22" fill="#8a909c"/><circle cx="286" cy="118" r="10" fill="#aab0bb"/><circle cx="314" cy="102" r="10" fill="#aab0bb"/>`;
+for(i=0;i<3;i++)s+=`<line x1="450" x2="540" y1="${150-i*28}" y2="${150-i*28}" stroke="var(--mut)" stroke-width="2"/>`;
+s+=`<circle cx="495" cy="${ab?94:150}" r="6" fill="var(--acc)"/><text class="m" x="450" y="172">energy levels</text>`;
+if(ab)s+=`<line x1="470" y1="146" x2="470" y2="100" stroke="var(--acc)" stroke-dasharray="3 3"/>`;
+let sum=[0,0,0],tot=[0,0,0],bar="";
+for(let v=380;v<=700;v+=5){const c=rgb(v),a=bd.some(r=>v>=r[0]&&v<=r[1]);c.forEach((q,k)=>{tot[k]+=q;if(!a)sum[k]+=q});bar+=`<rect x="${40+(v-380)/320*520}" y="204" width="8.4" height="16" fill="${a?"#6b707a":col(v)}"/>`}
+const x=40+(l-380)/320*520;
+s+=bar+`<path d="M${x-6} 198 L${x+6} 198 L${x} 206Z" fill="var(--fg)"/><text class="m" x="40" y="240">violet</text><text class="m" x="560" y="240" text-anchor="end">red</text><text class="m" x="300" y="240" text-anchor="middle">grey = absorbed</text>`;
+$("s2").innerHTML=s;$("o2").textContent=l+" nm: "+nm(l);
+$("sw2").style.background=`rgb(${sum.map((q,k)=>Math.round(255*q/tot[k])).join(",")})`}
+
+const R=[{c:"#9a6bff",k:1,p:[[60,12],[85,80],[60,120],[100,170],[75,125],[120,90],[150,12]]},
+{c:"#3d6dff",k:.9,p:[[210,12],[235,85],[205,130],[245,180],[225,135],[262,95],[290,12]]},
+{c:"#25a244",k:.25,p:[[350,12],[375,80],[345,125],[385,175],[360,130],[400,90],[430,12]]},
+{c:"#e0463a",k:.1,p:[[490,12],[510,75],[485,115],[525,160],[505,120],[540,85],[570,12]]}];
+let sd=7;const rnd=()=>(sd=(sd*9301+49297)%233280)/233280;const D=[];for(let i=0;i<70;i++)D.push([rnd()*580+10,60+rnd()*190]);
+function f3(){const a=$("a3").value/100;let s=`<rect x="0" y="60" width="600" height="40" fill="#e0a020" opacity="${a*.35}"/><text class="m" x="8" y="56">upper cloud layer, where the absorber sits</text>`;
+D.forEach(d=>s+=`<circle cx="${d[0]}" cy="${d[1]}" r="8" fill="none" stroke="var(--mut)" opacity=".45"/>`);
+R.forEach(r=>{const o=1-a*r.k,f=r.p.map(q=>q.join(",")),rest=f.slice(1).join(" ");
+s+=`<polyline points="${f[0]} ${f[1]}" fill="none" stroke="${r.c}" stroke-width="3"/><polyline points="${rest}" fill="none" stroke="${r.c}" stroke-width="3" opacity="${Math.max(o,.04)}"/>`});
+s+=`<text class="t" x="60" y="262">ultraviolet</text><text class="t" x="215" y="262">blue</text><text class="t" x="352" y="262">green</text><text class="t" x="495" y="262">red</text><text class="m" x="300" y="262" text-anchor="middle" style="display:none"></text>`;
+$("s3").innerHTML=s;let g="";
+for(let l=300;l<=700;l+=10){const y=(0.95*(1-a*.9/(1+Math.exp((l-430)/35))));g+=(l>300?"L":"M")+(40+(l-300)/400*540)+" "+(100-y*80)}
+$("g3").innerHTML=`<path d="${g}" fill="none" stroke="var(--acc)" stroke-width="3"/><line x1="40" x2="580" y1="102" y2="102" stroke="var(--mut)"/>
+<text class="m" x="40" y="118">ultraviolet</text><text class="m" x="580" y="118" text-anchor="end">red</text><text class="m" x="44" y="12">light reflected (schematic, not real data)</text>`;
+$("sw3").style.background=`rgb(${Math.round(255*(1-.1*a))},${Math.round(255*(1-.25*a))},${Math.round(255*(1-.9*a))})`}
+
+let z=true;
+function f4(){const t=z?70:24,y0=70,y1=y0+t;let s=`<rect x="0" y="${y0}" width="600" height="${t}" fill="#f4f4f1"/><rect x="0" y="${y1}" width="600" height="70" fill="#d9b98a"/><rect x="0" y="${y1+70}" width="600" height="70" fill="#7fb3d9"/>`;
+if(!z)s+=`<rect x="0" y="${y1}" width="600" height="14" fill="#b5651d" opacity=".75"/>`;
+s+=`<text x="10" y="${y0+16}" fill="#1b1d22" font-size="12" font-family="system-ui">Ammonia ice crystals (colourless, scatter all colours)</text>
+<text x="10" y="${y1+(z?20:34)}" fill="#1b1d22" font-size="12" font-family="system-ui">Ammonium hydrosulfide</text><text x="10" y="${y1+90}" fill="#1b1d22" font-size="12" font-family="system-ui">Water</text>`;
+if(!z)s+=`<text x="590" y="${y1+11}" text-anchor="end" fill="#fff" font-size="11" font-family="system-ui">chromophore molecules (identity uncertain)</text>`;
+[[170,"#3d6dff"],[300,"#25a244"],[430,"#e0463a"]].forEach(([x,c])=>{
+if(z)s+=`<polyline points="${x},12 ${x+40},${y0} ${x+80},12" fill="none" stroke="${c}" stroke-width="3"/>`;
+else if(c==="#3d6dff")s+=`<polyline points="${x},12 ${x+40},${y1+4}" fill="none" stroke="${c}" stroke-width="3"/><text x="${x+34}" y="${y1+12}" fill="#fff" font-size="16">✕</text>`;
+else s+=`<polyline points="${x},12 ${x+40},${y1+4} ${x+80},12" fill="none" stroke="${c}" stroke-width="3"/>`});
+s+=`<text class="m" x="10" y="26">sunlight</text><text class="m" x="590" y="292" text-anchor="end">${z?"Zone: thick ice reflects everything at the top":"Belt: thin ice lets light reach molecules that absorb blue"}</text>`;
+$("s4").innerHTML=s;$("sw4").style.background=z?"#f4f4f1":"#c98a5b";$("bz").className=z?"on":"";$("bb").className=z?"":"on"}
+$("w1").oninput=f1;$("w2").oninput=f2;$("m2").onchange=f2;$("a3").oninput=f3;
+$("bz").onclick=()=>{z=true;f4()};$("bb").onclick=()=>{z=false;f4()};
+f1();f2();f3();f4();
+</script></body></html>

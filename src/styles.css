@@ -69,9 +69,9 @@ a {
 }
 
 .report {
-  width: min(100% - 44px, 728px);
+  width: min(calc(100% - 20px), 728px);
   margin: 0 auto;
-  padding: 14px 0 56px;
+  padding: 4px 0 56px;
 }
 
 h1,
@@ -88,7 +88,7 @@ p {
   h2 {
     @apply text-base;
   }
-  h3,p {
+  h3,p,li {
     @apply text-[0.6875rem];
   }
 }
@@ -100,13 +100,54 @@ h3 {
 }
 
 h1 {
-  
-}
-
-h1 {
   margin-bottom: 7px;
   font-size: clamp(21px, 3vw, 25px);
   line-height: 1.1;
+}
+
+.intro-section {
+  font-size: 8px;
+  line-height: 1.15;
+}
+
+.intro-section h1 {
+  margin-bottom: 7px;
+}
+
+.intro-figure {
+  margin: 0 0 5px;
+}
+
+.intro-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.intro-figure figcaption {
+  margin-top: 2px;
+  color: #a7a7a7;
+  font-size: 8px;
+  line-height: 1;
+}
+
+.intro-section h2 {
+  margin-bottom: 5px;
+  font-size: 11px;
+  line-height: 1.1;
+}
+
+.intro-section p {
+  margin-bottom: 5px;
+}
+
+.intro-section ol {
+  margin: 0 0 6px;
+  padding-left: 15px;
+}
+
+.intro-section li {
+  padding-left: 1px;
 }
 
 .intro,
@@ -360,18 +401,25 @@ h1 {
   margin: 0;
 }
 
+.life-section > .report-placeholder-figure {
+  border-radius: 10px;
+  background: #fff;
+  color: #1b1d22;
+  padding: 14px;
+}
+
 .extremophile-table {
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
   border-collapse: collapse;
   color: #f0f0f0;
-  font-size: 15px;
-  line-height: 1.2;
+  font-size: 11px;
+  line-height: 1.18;
   text-align: left;
 }
 
 .extremophile-table caption {
-  margin-bottom: 22px;
-  font-size: 16px;
+  font-size: 11px;
   font-weight: 700;
   text-align: left;
 }
@@ -379,7 +427,7 @@ h1 {
 .extremophile-table th,
 .extremophile-table td {
   padding: 10px 0;
-  border-bottom: 1px solid #444;
+  border: 1px solid #444;
   vertical-align: top;
 }
 
@@ -420,6 +468,14 @@ h1 {
   margin-top: 6px;
 }
 
+.venus-atmosphere-figure,
+.continuation-figure {
+  border-radius: 10px;
+  background: #fff;
+  color: #1b1d22;
+  padding: 14px;
+}
+
 .report-large-placeholder {
   width: 66%;
   height: 194px;
@@ -434,10 +490,37 @@ h1 {
   padding-left: 18px;
   font-size: 11px;
   line-height: 1.18;
+  list-style: disc outside;
 }
 
 .report-bullets li {
   padding-left: 2px;
+  display: list-item;
+  list-style: disc outside;
+}
+
+.conjunction-section .law-equation {
+  margin: 8px 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.conjunction-section .conjunction-figure {
+  margin: 10px 0 14px;
+  padding: 0;
+  border-radius: 10px;
+  background: #fff;
+  color: #1b1d22;
+  text-align: center;
+}
+
+.conjunction-section .conjunction-figure figcaption {
+  width: 66%;
+  margin: 4px auto 0;
+  padding-bottom: 8px;
+  text-align: left;
 }
 
 .venus-widget {
@@ -684,7 +767,7 @@ h1 {
 
 @media (max-width: 680px) {
   .report {
-    width: min(100% - 32px, 728px);
+    width: min(calc(100% - 20px), 728px);
   }
 
   .carousel {

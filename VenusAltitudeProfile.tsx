@@ -178,7 +178,7 @@ export default function VenusAltitudeProfile() {
             <g key={t}>
               <line x1="46" y1={yOf(t)} x2="50" y2={yOf(t)} stroke="#475569" />
               <text x="42" y={yOf(t) + 3} fontSize="9" textAnchor="end" fill="#334155">
-                {t}
+                {t === ticks[0] ? "Low" : t === ticks[ticks.length - 1] ? "High" : ""}
               </text>
             </g>
           ))}
@@ -195,7 +195,7 @@ export default function VenusAltitudeProfile() {
             <g key={t}>
               <line x1={xTemp(t)} y1={TOP} x2={xTemp(t)} y2={yOf(0)} stroke="#e2e8f0" />
               <text x={xTemp(t)} y={yOf(0) - 4} fontSize="9" textAnchor="middle" fill="#64748b">
-                {t}
+                {t === 0 ? "Low" : t === 400 ? "High" : ""}
               </text>
             </g>
           ))}
@@ -209,7 +209,7 @@ export default function VenusAltitudeProfile() {
             <g key={p}>
               <line x1={xPres(p)} y1={TOP} x2={xPres(p)} y2={yOf(0)} stroke="#e2e8f0" />
               <text x={xPres(p)} y={yOf(0) - 4} fontSize="9" textAnchor="middle" fill="#64748b">
-                {p}
+                {p === 0.1 ? "Low" : p === 100 ? "High" : ""}
               </text>
             </g>
           ))}
@@ -236,13 +236,6 @@ export default function VenusAltitudeProfile() {
         </svg>
 
         <div className="rounded-lg border border-slate-200 p-3" aria-live="polite">
-          <p className="text-sm font-semibold text-slate-900">{Math.round(alt)} km above the surface</p>
-          <dl className="mt-2 grid grid-cols-2 gap-y-1 text-sm text-slate-800">
-            <dt>Temperature</dt>
-            <dd className="text-right font-medium">{Math.round(s.tempC)} °C</dd>
-            <dt>Pressure</dt>
-            <dd className="text-right font-medium">{formatPressure(s.pressureAtm)} atm</dd>
-          </dl>
           <p
             className={`mt-3 inline-block rounded px-2 py-0.5 text-xs font-medium ${
               inBand ? "bg-green-100 text-green-900" : "bg-slate-100 text-slate-700"
@@ -255,7 +248,7 @@ export default function VenusAltitudeProfile() {
       </div>
 
       <figcaption className="mt-3 text-sm text-slate-700">
-        Figure 4.0: Temperature and pressure in Venus&rsquo;s atmosphere by altitude (Author Year)
+        Figure 4.0: Temperature and pressure in Venus&rsquo;s atmosphere by altitude (“create an interactive diagram of temperature and pressure in Venus&apos;s atmosphere by altitude” prompt, Sonnet 5.5 from Anthropic, 18 November 2026, https://claude.ai/)
       </figcaption>
     </figure>
   );

@@ -283,7 +283,7 @@ export default function CloudHabitatDiagram() {
 
       {/* UNSW Harvard: caption directly under the figure, followed by in-text citation */}
       <figcaption className="mt-3 text-sm text-slate-700">
-        Figure 4.2: Behaviour of a suspended microbe in the clouds of Venus and Jupiter (Author Year)
+        Figure 4.2: Behaviour of a suspended microbe in the clouds of Venus and Jupiter (“create a diagram of the behaviour of a suspended microbe in the clouds of Venus and Jupiter” prompt, Sonnet 5.5 from Anthropic, 18 November 2026, https://claude.ai/)
       </figcaption>
     </figure>
   );

@@ -169,7 +169,7 @@ export default function PhosphineFlowchart() {
       </div>
 
       <figcaption className="mt-3 text-sm text-slate-700">
-        Figure 4.1: The phosphine argument and its current status (Author Year)
+        Figure 4.1: The phosphine argument and its current status (“create an interactive diagram of the phosphine argument and its current scientific status” prompt, Sonnet 5.5 from Anthropic, 18 November 2026, https://claude.ai/)
       </figcaption>
     </figure>
   );
