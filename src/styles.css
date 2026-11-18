@@ -1,0 +1,738 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+  --color-report: #303030;
+  --color-report-text: #f0f0f0;
+  --font-report: "DM Sans", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #303030;
+  color: #f0f0f0;
+  font-family: "DM Sans", Arial, sans-serif;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.report-page {
+  min-height: 100vh;
+  background: #303030;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 3px 6px;
+  background: #303030;
+}
+
+.site-header-inner {
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  background: #373737;
+}
+
+.site-header a {
+  color: #ededed;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.site-header div div,
+.site-header-inner > div {
+  color: #d3d3d3;
+  font-size: 8px;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.site-header p {
+  margin: 0;
+}
+
+.report {
+  width: min(100% - 44px, 728px);
+  margin: 0 auto;
+  padding: 14px 0 56px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-base;
+  }
+  h3,p {
+    @apply text-[0.6875rem];
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+}
+
+h1 {
+  
+}
+
+h1 {
+  margin-bottom: 7px;
+  font-size: clamp(21px, 3vw, 25px);
+  line-height: 1.1;
+}
+
+.intro,
+.carousel-copy p,
+.conclusion p {
+  /* font-size: 12px; */
+  line-height: 1.18;
+}
+
+.intro {
+  margin-bottom: 10px;
+}
+
+.carousel-section {
+  margin-top: 10px;
+}
+
+.carousel-section > h2,
+.conclusion h2 {
+  margin-bottom: 6px;
+  font-size: 16px;
+  line-height: 1.1;
+}
+
+.carousel {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) minmax(220px, 1fr) 26px;
+  gap: 10px;
+  align-items: center;
+  min-height: 178px;
+}
+
+.carousel-copy {
+  grid-column: 2;
+  align-self: start;
+  padding: 24px 6px 0 16px;
+}
+
+.carousel-copy h3 {
+  margin-bottom: 3px;
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+.carousel-copy p {
+  margin-bottom: 0;
+}
+
+.figure-wrap {
+  grid-column: 3;
+  align-self: start;
+}
+
+.figure-placeholder {
+  display: grid;
+  min-height: 154px;
+  place-items: center;
+  background: #fafafa;
+  color: #888;
+  font-size: 11px;
+}
+
+.figure-wrap > span {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+}
+
+.spectrum-widget {
+  min-height: 154px;
+  padding: 8px 10px 6px;
+  background: #f7f7f7;
+  color: #242424;
+  font-size: 8px;
+  user-select: none;
+}
+
+.spectrum-waves {
+  display: block;
+  width: 100%;
+  height: 58px;
+  overflow: visible;
+}
+
+.spectrum-waves path {
+  fill: none;
+  stroke: #343434;
+  stroke-width: 1.5;
+}
+
+.wave-axis {
+  stroke: #343434;
+  stroke-width: 1;
+}
+
+.wave-axis-label {
+  fill: #555;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 7px;
+  text-anchor: middle;
+}
+
+.wave-y-label {
+  text-anchor: middle;
+  transform: rotate(-90deg);
+  transform-origin: 8px 39px;
+}
+
+.spectrum-scale {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  color: #555;
+  font-size: 7px;
+}
+
+.wave-labels {
+  margin: -2px 0 5px;
+}
+
+.spectrum-track {
+  position: relative;
+  height: 18px;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    #481778 0%,
+    #481778 28%,
+    #6f00ff 29%,
+    #2d66ff 40%,
+    #00a86b 54%,
+    #f4df24 68%,
+    #ff8c1a 78%,
+    #ef2929 100%
+  );
+}
+
+.spectrum-track:focus-visible {
+  box-shadow: 0 0 0 2px #343434;
+}
+
+.ultraviolet-label {
+  position: absolute;
+  top: -18px;
+  left: 3px;
+  color: #555;
+  line-height: 1.05;
+}
+
+.ultraviolet-label small {
+  font-size: 7px;
+}
+
+.spectrum-marker {
+  position: absolute;
+  top: -4px;
+  width: 9px;
+  height: 26px;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px #222, 0 1px 3px #222;
+  cursor: grab;
+  transform: translateX(-50%);
+  touch-action: none;
+}
+
+.spectrum-marker:active {
+  cursor: grabbing;
+}
+
+.spectrum-scale {
+  margin-top: 4px;
+  font-size: 6px;
+}
+
+.spectrum-reading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin: 7px 0 0;
+  font-size: 9px;
+}
+
+.spectrum-reading strong {
+  font-size: 10px;
+}
+
+.spectrum-reading em {
+  flex-basis: 100%;
+  margin-top: 1px;
+  color: #555;
+  font-size: 7px;
+}
+
+.carousel-arrow {
+  align-self: center;
+  border: 0;
+  background: transparent;
+  color: #f0f0f0;
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 1;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.carousel-arrow:hover {
+  color: #aaa;
+  transform: scale(1.15);
+}
+
+.carousel-arrow:first-child {
+  grid-column: 1;
+}
+
+.carousel-arrow:last-child {
+  grid-column: 4;
+}
+
+.static-section,
+.conclusion {
+  margin-top: 18px;
+}
+
+.static-section h2,
+.conclusion h2 {
+  margin-bottom: 6px;
+  font-size: 16px;
+  line-height: 1.1;
+}
+
+.static-section p,
+.conclusion p {
+  max-width: 700px;
+  margin-bottom: 0;
+}
+
+.full-figure {
+  margin: 0;
+}
+
+.full-figure figcaption {
+  margin-top: 4px;
+  font-size: 11px;
+}
+
+.report-placeholder-figure {
+  width: 100%;
+  margin: 0;
+}
+
+.extremophile-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #f0f0f0;
+  font-size: 15px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.extremophile-table caption {
+  margin-bottom: 22px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.extremophile-table th,
+.extremophile-table td {
+  padding: 10px 0;
+  border-bottom: 1px solid #444;
+  vertical-align: top;
+}
+
+.extremophile-table th {
+  font-weight: 700;
+}
+
+.extremophile-table th:nth-child(1),
+.extremophile-table td:nth-child(1) {
+  width: 24%;
+}
+
+.extremophile-table th:nth-child(2),
+.extremophile-table td:nth-child(2) {
+  width: 30%;
+}
+
+.extremophile-table th:nth-child(3),
+.extremophile-table td:nth-child(3) {
+  width: 46%;
+}
+
+.report-table-placeholder,
+.report-large-placeholder {
+  width: 58%;
+  height: 114px;
+  margin: 0 auto;
+  background: #fafafa;
+}
+
+.report-placeholder-figure figcaption {
+  width: 58%;
+  margin: 4px auto 0;
+  font-size: 11px;
+}
+
+.venus-atmosphere-figure {
+  margin-top: 6px;
+}
+
+.report-large-placeholder {
+  width: 66%;
+  height: 194px;
+}
+
+.venus-atmosphere-figure figcaption {
+  width: 66%;
+}
+
+.report-bullets {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 11px;
+  line-height: 1.18;
+}
+
+.report-bullets li {
+  padding-left: 2px;
+}
+
+.venus-widget {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 12px;
+  padding: 8px;
+  background: #f7f7f7;
+  color: #242424;
+}
+
+.venus-cloud-panel {
+  min-width: 0;
+}
+
+.venus-cloud-panel svg {
+  display: block;
+  width: 100%;
+  height: 190px;
+}
+
+.sunlight-rays path {
+  fill: none;
+  stroke-width: 2;
+  stroke-dasharray: 4 3;
+}
+
+.cloud-droplets circle {
+  fill: #d7d7e5;
+  stroke: #777;
+  stroke-width: 0.7;
+}
+
+.scattered-rays path,
+.escape-ray {
+  fill: none;
+  stroke: #777;
+  stroke-width: 1;
+  stroke-dasharray: 3 2;
+}
+
+.escape-ray {
+  stroke: #333;
+  stroke-width: 1.5;
+}
+
+.venus-cloud-panel text {
+  fill: #555;
+  font-size: 7px;
+}
+
+.venus-controls {
+  padding: 4px 2px;
+  font-size: 9px;
+}
+
+.venus-controls label {
+  display: block;
+  line-height: 1.2;
+}
+
+.venus-controls input {
+  display: block;
+  width: 100%;
+  margin: 9px 0 7px;
+  accent-color: #5b65a8;
+}
+
+.venus-swatch-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #555;
+  font-size: 8px;
+}
+
+.venus-swatch {
+  width: 22px;
+  height: 13px;
+  border: 1px solid #999;
+}
+
+.reflectance-graph {
+  margin-top: 15px;
+}
+
+.reflectance-graph svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.reflectance-graph line {
+  stroke: #555;
+  stroke-width: 1;
+}
+
+.reflectance-curve {
+  fill: none;
+  stroke: #5b65a8;
+  stroke-width: 2;
+}
+
+.reflectance-graph text {
+  fill: #555;
+  font-size: 7px;
+}
+
+.reflectance-graph > span {
+  display: block;
+  margin-top: 4px;
+  color: #777;
+  font-size: 7px;
+  font-style: italic;
+}
+
+.molecule-widget {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 170px;
+  gap: 12px;
+  padding: 8px;
+  background: #f7f7f7;
+  color: #242424;
+}
+
+.molecule-diagram svg {
+  display: block;
+  width: 100%;
+  height: 190px;
+}
+
+.molecule-beam,
+.absorption-line,
+.scatter-rays path,
+.reflection-group path,
+.electron-step {
+  fill: none;
+  stroke-width: 2;
+}
+
+.molecule-beam {
+  color: #4d7cff;
+}
+
+.absorption-line {
+  stroke: #777;
+  stroke-dasharray: 3 2;
+}
+
+.molecule-core {
+  fill: #f2c94c;
+  stroke: #986f00;
+  stroke-width: 1;
+}
+
+.scatter-rays path,
+.reflection-group path {
+  stroke: #777;
+  stroke-width: 1;
+  stroke-dasharray: 3 2;
+}
+
+.reflection-group circle {
+  fill: #d7d7e5;
+  stroke: #777;
+  stroke-width: 1;
+}
+
+.energy-ladder line {
+  stroke: #555;
+  stroke-width: 1.5;
+}
+
+.energy-ladder .electron-step {
+  stroke: #c2644e;
+  stroke-dasharray: 3 2;
+}
+
+.energy-ladder circle {
+  fill: #c2644e;
+}
+
+.molecule-label,
+.interaction-result,
+.energy-ladder text {
+  fill: #555;
+  font-size: 7px;
+}
+
+.interaction-result {
+  font-weight: 700;
+}
+
+.molecule-controls {
+  padding: 4px 2px;
+  font-size: 9px;
+}
+
+.molecule-controls label {
+  display: block;
+  line-height: 1.2;
+}
+
+.molecule-controls input {
+  display: block;
+  width: 100%;
+  margin: 9px 0 7px;
+  accent-color: #5b65a8;
+}
+
+.molecule-reading {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 11px;
+  font-size: 9px;
+}
+
+.molecule-rainbow {
+  height: 13px;
+  background: linear-gradient(90deg, #481778, #6f00ff, #2d66ff, #00a86b, #f4df24, #ff8c1a, #ef2929);
+}
+
+.molecule-rainbow span {
+  display: block;
+  height: 100%;
+  margin-left: 35%;
+  width: 18%;
+  background: #999;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.molecule-rainbow span.absorbed {
+  opacity: 0.9;
+}
+
+.molecule-help {
+  margin: 7px 0 0;
+  color: #555;
+  font-size: 8px;
+  line-height: 1.25;
+}
+
+@media (max-width: 680px) {
+  .report {
+    width: min(100% - 32px, 728px);
+  }
+
+  .carousel {
+    grid-template-columns: 24px minmax(0, 1fr) 24px;
+    gap: 5px;
+  }
+
+  .carousel-copy {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 0;
+  }
+
+  .figure-wrap {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .carousel-arrow:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .carousel-arrow:last-child {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .venus-widget {
+    grid-template-columns: 1fr;
+  }
+
+  .molecule-widget {
+    grid-template-columns: 1fr;
+  }
+
+  .report-table-placeholder,
+  .report-large-placeholder,
+  .report-placeholder-figure figcaption,
+  .venus-atmosphere-figure figcaption {
+    width: 100%;
+  }
+
+  .extremophile-table {
+    font-size: 11px;
+  }
+
+  .extremophile-table caption {
+    font-size: 13px;
+  }
+}
