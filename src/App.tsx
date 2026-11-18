@@ -5,6 +5,7 @@ import LineOfSightWidget from '../LineOfSight'
 import OrbitsInOneYearWidget from '../OrbitsInOneYear'
 import PhosphineFlowchart from '../PhosphineFlowchart'
 import VenusAltitudeProfile from '../VenusAltitudeProfile'
+import apodImage from '../assets/apod_poc.jpg'
 
 
 type LearningSlide = {
@@ -448,7 +449,7 @@ function App() {
         <section className="intro-section flex flex-col gap-2">
           <h1>Introduction</h1>
           <figure className="intro-figure">
-            <img src="/assets/apod_poc.jpg" alt="Venus and Jupiter above a sunset horizon" />
+            <img src={apodImage} alt="Venus and Jupiter above a sunset horizon" />
             <figcaption>Figure 1.0: Venus and Jupiter on the horizon (Casado 2019)</figcaption>
           </figure>
 
